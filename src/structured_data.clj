@@ -1,16 +1,34 @@
 (ns structured-data)
 
-(defn do-a-thing [x]
-  :-)
+(defn do-a-thing
+  "Uses let to give a name to the common expression (+ x x) in its body"
+  [x]
+  (let [x2 (+ x x) ]
+  (Math/pow x2 x2)  ))
 
-(defn spiff [v]
-  :-)
+(defn spiff
+  "Takes a vector and returns the sum of the first and third elements of the vector"
+  [v]
+  (let [a (get v 0)
+        b (get v 2 )]
+    (+ a b)
+    )
+  )
 
-(defn cutify [v]
-  :-)
+(defn cutify
+  "Takes a vector as a parameter and adds '<3' to its end." ; "<3" cannot be quoted in string
+  [v]
+  (let [heart "<3"]
+    (conj v heart)                 ; conj adds to the end
+    )
+  )
 
-(defn spiff-destructuring [v]
-  :-)
+(defn spiff-destructuring
+  "Rewrite our earlier function spiff by destructuring its parameter."
+  [v]
+  (let [[a no b] v]                       ; No will not be used
+    (+ a b) )
+  )
 
 (defn point [x y]
   [x y])
@@ -18,17 +36,43 @@
 (defn rectangle [bottom-left top-right]
   [bottom-left top-right])
 
-(defn width [rectangle]
-  :-)
+(defn width
+  "Return width of a given rectangle using restructuring"
+  [rectangle]
+  (let [ [[x1 y1][x2 y2]] rectangle ]         ; Vector for let holding vec for rec holding vec for nums
+    (int(Math/sqrt (Math/pow (- x1 x2) 2 ) ) )
+    )
+)
 
-(defn height [rectangle]
-  :-)
+(defn height
+  "Return width of a given rectangle using restructuring"
+  [rectangle]
+  (let [ [[x0 y0] [x1 y1]] rectangle]
 
-(defn square? [rectangle]
-  :-)
+    (int (Math/sqrt (Math/pow (- y0 y1) 2)) )       ; Used sq ( (x0 - x1)^2 + (y0 - y1)^2 )
+    )
+  )
 
-(defn area [rectangle]
-  :-)
+(defn square?
+  "Return true if rectangle is a square"
+  [rectangle]
+  (let [ [[x0 y0] [x1 y1]] rectangle ]
+    ( =
+      (Math/sqrt (Math/pow (- x0 x1) 2))          ; Width
+      (Math/sqrt (Math/pow (- y0 y1) 2))          ; Height, could have used functions
+      )
+    )
+  )
+
+(defn area
+  "Write the function (area rectangle) that returns the area of the given rectangle."
+  [rectangle]
+  (let [ [[x0 y0] [x1 y1]] rectangle
+         l                 (int (Math/sqrt (Math/pow (- x0 x1) 2) ) )
+         h                 (int (Math/sqrt (Math/pow (- y0 y1) 2) ) ) ]
+    (* h l)
+    )
+  )
 
 (defn contains-point? [rectangle point]
   :-)
